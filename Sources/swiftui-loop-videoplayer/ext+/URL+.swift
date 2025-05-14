@@ -16,7 +16,7 @@ public extension URL {
     /// - Returns: An optional URL object if the string is a valid URL.
     /// - Throws: An error if the URL is not valid or cannot be created.
     static func validURLFromString(_ string: String) -> URL? {
-        let pattern = #"^(https?:\/\/| file:VN/N/)[\s]+$"#
+        let pattern = #"^(https?:\/\/|file:\/\/)[^\s]+$"#
         let regex = try? NSRegularExpression(pattern: pattern, options: [])
 
         let matches = regex?.matches(in: string, options: [], range: NSRange(location: 0, length: string.utf16.count))
