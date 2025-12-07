@@ -1,5 +1,10 @@
-# SwiftUI video player iOS 14+, macOS 11+, tvOS 14+
-### *Please star the repository if you believe continuing the development of this package is worthwhile. This will help me understand which package deserves more effort.*
+## ⭐ Star it, please — so I know it’s worth improving further
+iOS 14+, macOS 11+, tvOS 14+
+
+
+## Coming soon: Metal shaders for video 
+Support for applying **Metal shaders** directly to **video frames**.  
+Real-time effects on the timeline, no extra copies or heavy post-processing.
 
 [![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fswiftuiux%2Fswiftui-loop-videoplayer%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/swiftuiux/swiftui-loop-videoplayer)
 [![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fswiftuiux%2Fswiftui-loop-videoPlayer%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/swiftuiux/swiftui-loop-videoPlayer)
@@ -7,7 +12,9 @@
 
 It is a pure package without any third-party libraries. My main focus was on performance. Especially if you need to add a video in the background as a design element, in such cases, you’d want a lightweight component without a lot of unnecessary features. **I hope it serves you well**.
 
-### SwiftUI app example [follow the link](https://github.com/swiftuiux/swiftui-video-player-example)
+### 🟩 Demo project showing video player usage and features: [follow the link](https://github.com/swiftuiux/swiftui-video-player-example)
+
+
 
 ## Why if we have Apple’s VideoPlayer ?!
 
@@ -41,7 +48,8 @@ The player's functionality is designed around a dual &#8646; interaction model:
 
 ![The concept](https://github.com/swiftuiux/swiftui-video-player-example/blob/main/swiftui-loop-videoplayer-example/img/swiftui_video_player.gif) 
 
-## Specs
+## Implemented Specs
+*The [sample app](https://github.com/swiftuiux/swiftui-video-player-example) demonstrates the majority of the specs implemented in the component*
 
 | **Feature Category**      | **Feature Name**                            | **Description**                                                                                          |
 |----------------------------|---------------------------------------------|----------------------------------------------------------------------------------------------------------|
@@ -110,6 +118,8 @@ You can reach out the effect simply via mask modifier
 
 ### By the way
 [Perhaps that might be enough for your needs](https://github.com/swiftuiux/swiftui-loop-videoPlayer/issues/7#issuecomment-2341268743)
+
+
 
 
 ## Testing
@@ -452,27 +462,6 @@ ExtVideoPlayer{
 | Direct MP4 URLs | Yes | Directly accessible MP4 URLs can be used if they are hosted on servers that permit CORS. |
 | HLS Streams | Yes | HLS streams are supported and can be used for live streaming purposes. |
 
-
-## New Functionality: Playback Commands
-
-The package now supports playback commands, allowing you to control video playback actions such as play, pause, and seek to specific times. 
-
-```swift
-struct VideoView: View {
-    @State private var playbackCommand: PlaybackCommand = .play
-
-    var body: some View {
-        ExtVideoPlayer(
-            {
-                VideoSettings {
-                    SourceName("swipe")
-                }
-            },
-            command: $playbackCommand
-        )
-    }
-}
-```
 
 ## Practical ideas for the package
 You can introduce video hints about some functionality into the app, for example how to add positions to favorites. Put loop video hint into background or open as popup.

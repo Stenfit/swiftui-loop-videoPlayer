@@ -10,23 +10,28 @@ import Foundation
 
 public extension URL {
     
-    /// Validates a string as a well-formed HTTP or HTTPS URL and returns a URL object if valid.
-    ///
-    /// - Parameter urlString: The string to validate as a URL.
-    /// - Returns: An optional URL object if the string is a valid URL.
-    /// - Throws: An error if the URL is not valid or cannot be created.
-    static func validURLFromString(_ string: String) -> URL? {
-        let pattern = #"^(https?:\/\/|file:\/\/)[^\s]+$"#
-        let regex = try? NSRegularExpression(pattern: pattern, options: [])
+    /// Validates and returns an HTTP/HTTPS URL or nil.
+    /// Strategy:
+    /// 1) Parse once to detect an existing scheme (mailto, ftp, etc.).
+    /// 2) If a scheme exists and it's not http/https -> reject.
+    static func validURLFromString(from raw: String) -> URL? {
+        let trimmed = raw.trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        if let pre = URLComponents(string: trimmed), let scheme = pre.scheme?.lowercased() {
+            switch scheme {
+            case "http", "https":
+                guard let host = pre.host, !host.isEmpty else { return nil }
+                if let port = pre.port, !(1...65535).contains(port) { return nil }
+                return pre.url
 
-        let matches = regex?.matches(in: string, options: [], range: NSRange(location: 0, length: string.utf16.count))
+            case "file":
+                return pre.url
 
-        guard let _ = matches, !matches!.isEmpty else {
-            // If no matches are found, the URL is not valid
-            return nil
+            default:
+                return nil
+            }
         }
         
-        // If a match is found, attempt to create a URL object
-        return URL(string: string)
+        return nil
     }
 }
